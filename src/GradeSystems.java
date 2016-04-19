@@ -68,7 +68,7 @@ public class GradeSystems {
 	 * @param ID student ID number
 	 * @return true if system contain this ID
 	 * @throws NoSuchIDExceptions If system not contain this ID then throw this exception
-	 * @TimeEstimate O(n)
+	 * <p>TimeEstimate O(n)
 	 */
 	public boolean containsID(String ID) throws NoSuchIDExceptions{
 		for(Grades t : aList){
@@ -108,9 +108,9 @@ public class GradeSystems {
 	}
 	/**
 	 * Get student name from student's ID
+	 * <p>TimeEstimate O(n)
 	 * @param ID A student's ID number
 	 * @return A String contain student's name
-	 * @TimeEstimate O(n)
 	 */
 	public String getStudentName(String ID){
 		for(Grades t:aList){
@@ -177,8 +177,8 @@ public class GradeSystems {
 	}
 	/**
 	 * Show a student rank in all students by student's ID
+	 * <p>TimeEstimate O(n)
 	 * @param ID A student's ID number
-	 * @TimeEstimate O(n)
 	 */
 	public void showRank(String ID){
 		int rank = 1;
