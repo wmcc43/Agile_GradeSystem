@@ -2,12 +2,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
-
+/**
+ * A core class for whole system which read the default grades data and load to system,
+ * it holds all grades in the data file and it has weight to calculate the total score.
+ */
 public class GradeSystems {
 	LinkedList<Grades> aList;
 	double[] weights = {0.1,0.1,0.1,0.3,0.4};
 	Scanner input = new Scanner(System.in);
 	String filePath = "./gradeInput.txt";
+	/**
+	 * Construct a GradeSystem with default grade data path.
+	 * @throws FileNotFoundException If the grade data path not found
+	 */
 	public GradeSystems() throws FileNotFoundException{
 		File gradeinput = new File(filePath);
 		Scanner fileinput = new Scanner(gradeinput);
@@ -29,7 +36,11 @@ public class GradeSystems {
 		}
 		fileinput.close();
 	}
-	
+	/**
+	 * Construct a GradeSystem with specified grade data path with param "filePath".
+	 * @param filePath Grades data file path
+	 * @throws FileNotFoundException If the grade data path not found
+	 */
 	public GradeSystems(String filePath)  throws FileNotFoundException{
 		this.filePath = filePath;
 		File gradeinput = new File(filePath);
@@ -52,7 +63,13 @@ public class GradeSystems {
 		}
 		fileinput.close();
 	}
-	
+	/**
+	 * Search GradeSystem contain this ID or not, if contain then return true, else throw NoSuchIDExceptions
+	 * @param ID student ID number
+	 * @return true if system contain this ID
+	 * @throws NoSuchIDExceptions If system not contain this ID then throw this exception
+	 * @TimeEstimate O(n)
+	 */
 	public boolean containsID(String ID) throws NoSuchIDExceptions{
 		for(Grades t : aList){
 			if(t.ID.equals(ID))
@@ -60,7 +77,11 @@ public class GradeSystems {
 		}
 		throw new NoSuchIDExceptions();
 	}
-	
+	/***
+	 * Get new grade weight which input by user and test user input if summary equals 100% or not, 
+	 * if not, ask user retype the weight
+	 * @return A double[] array contain new score weight
+	 */
 	public double[] getNewWeights(){
 		double newweights[] = new double[5];
 		double tempSumWeight = 0;
@@ -85,7 +106,12 @@ public class GradeSystems {
 		}while(tempSumWeight!=1.0);
 		return newweights;
 	}
-	
+	/**
+	 * Get student name from student's ID
+	 * @param ID A student's ID number
+	 * @return A String contain student's name
+	 * @TimeEstimate O(n)
+	 */
 	public String getStudentName(String ID){
 		for(Grades t:aList){
 			if(t.ID.equals(ID)){
@@ -94,7 +120,11 @@ public class GradeSystems {
 		}
 		return null;
 	}
-	
+	/**
+	 * Set new grade weights from user, it asks user to check the new grade weights is correct or not,
+	 * if yes, then change the grade weights to new one, else not change. 
+	 * @param newweights A new grade weights from user which get by method getNewWeight()
+	 */
 	public void setWeights(double newweights[]){
 		System.out.println("請確認新配分");
 		System.out.println("\tlab1\t\t"+(int)(newweights[0]*100)+"%");
@@ -116,7 +146,10 @@ public class GradeSystems {
 		}
 		
 	}
-
+	/**
+	 * Show student grades by ID
+	 * @param ID A student's ID number
+	 */
 	public void showGrade(String ID){
 		aList.forEach(grades->{
 			if(grades.ID.equals(ID)){
@@ -131,7 +164,9 @@ public class GradeSystems {
 		
 		
 	}
-	
+	/**
+	 * Show the cuurent grade weights in GradeSystem
+	 */
 	public void showOldWeights(){
 		System.out.println("舊配分");
 		System.out.println("\tlab1\t\t"+(int)(weights[0]*100)+"%");
@@ -140,7 +175,11 @@ public class GradeSystems {
 		System.out.println("\tmid-term\t"+(int)(weights[3]*100)+"%");
 		System.out.println("\tfinal exam\t"+(int)(weights[4]*100)+"%");
 	}
-
+	/**
+	 * Show a student rank in all students by student's ID
+	 * @param ID A student's ID number
+	 * @TimeEstimate O(n)
+	 */
 	public void showRank(String ID){
 		int rank = 1;
 		Grades target = null;
@@ -158,7 +197,9 @@ public class GradeSystems {
 			System.out.println(target.name+"排名第"+rank);
 		}
 	}
-	
+	/**
+	 * A serial progress for updating GradeSystem's grade weights
+	 */
 	public void updateWeights(){
 		double newweights[] = new double[5];
 		showOldWeights();
@@ -166,7 +207,9 @@ public class GradeSystems {
 		setWeights(newweights);
 		reCalculateGrade();
 	}
-	
+	/**
+	 * To recalculate the total score of all students when update GradeSystem grade weights.
+	 */
 	public void reCalculateGrade(){
 		for(Grades t:aList){
 			t.calculateTotalGrade(weights);
