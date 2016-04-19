@@ -15,6 +15,7 @@ public class Grades {
 						+ ((double)lab3)*weights[2]
 						+ ((double)midTerm)*weights[3]
 						+ ((double)finalExam)*weights[4]));
+		totalGrade = weightGrade;
 		return weightGrade;
 	}
 }

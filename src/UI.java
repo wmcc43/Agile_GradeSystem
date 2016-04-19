@@ -19,12 +19,14 @@ public class UI {
 				while(!command.equalsIgnoreCase("e")){
 					command = promptCommand();
 				}
-				
 			}
-			
 		}
 		showFinishMsg();
 		input.close();
+	}
+	
+	public UI(String GradsFile) throws FileNotFoundException{
+		gs = new GradeSystems(GradsFile);
 	}
 	
 	public boolean checkID(String userID) throws NoSuchIDExceptions{

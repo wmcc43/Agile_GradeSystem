@@ -9,12 +9,15 @@ public class Main {
 		}
 		catch(NoSuchIDExceptions e){
 			System.out.println("ID錯了!");
+			e.printStackTrace();
 		}
 		catch(NoSuchCommandExceptions e){
 			System.out.println("指令錯了!");
+			e.printStackTrace();
 		}
 		catch(FileNotFoundException e){
 			System.out.println("成績檔案找不到!");
+			e.printStackTrace();
 		}
 		
 		
